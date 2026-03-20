@@ -298,6 +298,169 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
   .radio-col{max-height:320px}
   .vu-circular-wrap canvas{width:130px!important;height:130px!important}
 }
+
+/* ── QOBUZ PANEL ─────────────────────────────────────────────────── */
+.qobuz-btn{
+  display:flex;align-items:center;gap:6px;
+  padding:5px 13px;
+  background:var(--surface);border:1px solid var(--border2);
+  border-radius:8px;color:var(--text2);font-family:var(--mono);
+  font-size:11px;font-weight:600;cursor:pointer;
+  transition:all .15s;box-shadow:var(--shadow-sm);
+  flex-shrink:0;
+}
+.qobuz-btn:hover{border-color:#b8d729;color:#b8d729;background:rgba(184,215,41,.08)}
+.qobuz-btn.active{background:rgba(184,215,41,.15);border-color:#b8d729;color:#b8d729;box-shadow:0 0 10px rgba(184,215,41,.2)}
+.qobuz-logo{font-size:14px;line-height:1}
+
+.qobuz-panel{
+  display:none;position:fixed;inset:0;z-index:9990;
+  background:rgba(0,0,0,.75);
+  align-items:center;justify-content:center;
+  animation:fadeIn .18s ease;
+}
+.qobuz-panel.open{display:flex}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+.qobuz-inner{
+  width:min(860px,95vw);height:min(680px,90vh);
+  background:var(--win-bg);border:1px solid var(--border2);
+  border-radius:18px;box-shadow:var(--shadow-lg);
+  display:flex;flex-direction:column;overflow:hidden;
+  animation:slideUp .2s cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes slideUp{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+
+.qobuz-header{
+  height:52px;background:var(--win-bg2);border-bottom:1px solid var(--divide);
+  display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;
+  border-radius:18px 18px 0 0;
+}
+.qobuz-header-logo{
+  font-family:var(--mono);font-size:15px;font-weight:700;
+  color:#b8d729;letter-spacing:1px;
+}
+.qobuz-header-sub{font-family:var(--mono);font-size:9px;color:var(--text3);letter-spacing:1.5px;text-transform:uppercase}
+.qobuz-close{
+  margin-left:auto;width:28px;height:28px;border-radius:50%;
+  background:var(--surface);border:1px solid var(--border2);
+  color:var(--text2);cursor:pointer;display:flex;align-items:center;
+  justify-content:center;font-size:13px;transition:all .15s;
+}
+.qobuz-close:hover{background:var(--surface2);color:var(--text)}
+
+.qobuz-tabs{
+  display:flex;gap:0;border-bottom:1px solid var(--divide);
+  background:var(--win-bg3);flex-shrink:0;padding:0 16px;
+}
+.qobuz-tab{
+  font-family:var(--mono);font-size:11px;font-weight:600;
+  padding:10px 16px;color:var(--text3);cursor:pointer;
+  border-bottom:2px solid transparent;transition:all .15s;
+  letter-spacing:.5px;display:flex;align-items:center;gap:6px;
+}
+.qobuz-tab:hover{color:var(--text2)}
+.qobuz-tab.active{color:#b8d729;border-bottom-color:#b8d729}
+
+.qobuz-body{flex:1;overflow:hidden;display:flex;flex-direction:column;min-height:0}
+
+/* Search */
+.qobuz-search-bar{
+  display:flex;gap:8px;padding:12px 16px;border-bottom:1px solid var(--divide);
+  flex-shrink:0;background:var(--win-bg2);
+}
+.qobuz-search-input{
+  flex:1;background:var(--surface);border:1px solid var(--border2);
+  color:var(--text);font-family:var(--mono);font-size:12px;
+  padding:8px 12px;border-radius:8px;outline:none;transition:border-color .15s;
+}
+.qobuz-search-input:focus{border-color:#b8d729}
+.qobuz-search-input::placeholder{color:var(--text3)}
+.qobuz-search-btn{
+  background:rgba(184,215,41,.15);border:1px solid rgba(184,215,41,.4);
+  color:#b8d729;font-family:var(--mono);font-size:11px;font-weight:600;
+  padding:8px 16px;border-radius:8px;cursor:pointer;transition:all .15s;
+}
+.qobuz-search-btn:hover{background:rgba(184,215,41,.25)}
+
+.qobuz-results{flex:1;overflow-y:auto;padding:4px 0}
+.qobuz-results::-webkit-scrollbar{width:3px}
+.qobuz-results::-webkit-scrollbar-thumb{background:var(--surface2);border-radius:2px}
+
+.qobuz-empty{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  height:100%;gap:12px;color:var(--text3);font-family:var(--mono);
+  font-size:11px;letter-spacing:1px;
+}
+.qobuz-empty-icon{font-size:40px;opacity:.3}
+
+/* Track row */
+.qtrack{
+  display:flex;align-items:center;gap:10px;
+  padding:8px 16px;cursor:pointer;transition:background .1s;
+  border-bottom:1px solid var(--divide);
+}
+.qtrack:hover{background:var(--surface)}
+.qtrack:last-child{border-bottom:none}
+.qtrack-cover{
+  width:40px;height:40px;border-radius:6px;
+  background:var(--surface2);flex-shrink:0;overflow:hidden;
+  border:1px solid var(--border);
+}
+.qtrack-cover img{width:100%;height:100%;object-fit:cover}
+.qtrack-info{flex:1;min-width:0}
+.qtrack-title{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.qtrack-artist{font-size:11px;color:var(--text2);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.qtrack-album{font-size:10px;color:var(--text3);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-family:var(--mono)}
+.qtrack-meta{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.qtrack-duration{font-family:var(--mono);font-size:10px;color:var(--text3)}
+.qtrack-hi{
+  font-family:var(--mono);font-size:8px;font-weight:700;
+  padding:2px 5px;border-radius:4px;letter-spacing:.5px;
+  background:rgba(184,215,41,.15);color:#b8d729;border:1px solid rgba(184,215,41,.3);
+}
+.qtrack-fav-btn{
+  width:28px;height:28px;border-radius:50%;
+  background:transparent;border:1px solid var(--border);
+  color:var(--text3);cursor:pointer;display:flex;
+  align-items:center;justify-content:center;font-size:13px;
+  transition:all .15s;flex-shrink:0;
+}
+.qtrack-fav-btn:hover{border-color:#ff453a;color:#ff453a;background:rgba(255,69,58,.1)}
+.qtrack-fav-btn.faved{border-color:#ff453a;color:#ff453a;background:rgba(255,69,58,.15)}
+
+/* Loading */
+.qobuz-loading{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;height:100%;gap:12px;
+}
+.qobuz-spinner{
+  width:24px;height:24px;border:2px solid var(--divide);
+  border-top-color:#b8d729;border-radius:50%;
+  animation:spin .7s linear infinite;
+}
+.qobuz-loading-txt{font-family:var(--mono);font-size:10px;color:var(--text3);letter-spacing:2px}
+
+/* Section title */
+.qsection{
+  font-family:var(--mono);font-size:9px;font-weight:600;
+  color:var(--text3);letter-spacing:1.5px;text-transform:uppercase;
+  padding:10px 16px 4px;
+}
+
+/* Player bar */
+.qobuz-player{
+  height:56px;background:var(--win-bg3);border-top:1px solid var(--divide);
+  display:flex;align-items:center;padding:0 16px;gap:12px;flex-shrink:0;
+  border-radius:0 0 18px 18px;
+}
+.qp-cover{width:36px;height:36px;border-radius:6px;background:var(--surface2);overflow:hidden;flex-shrink:0;border:1px solid var(--border)}
+.qp-cover img{width:100%;height:100%;object-fit:cover}
+.qp-info{flex:1;min-width:0}
+.qp-title{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text)}
+.qp-artist{font-size:10px;color:var(--text3);font-family:var(--mono);margin-top:1px}
+.qp-badge{font-family:var(--mono);font-size:8px;padding:2px 5px;border-radius:4px;background:rgba(184,215,41,.15);color:#b8d729;border:1px solid rgba(184,215,41,.25);margin-left:6px;vertical-align:middle}
+.qp-status{font-family:var(--mono);font-size:9px;color:#b8d729;letter-spacing:1px;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -390,6 +553,10 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
         <div class="theme-opt active" data-t="dark" onclick="setTheme('dark')">Dark</div>
         <div class="theme-opt" data-t="gray-dark" onclick="setTheme('gray-dark')">Grafite</div>
       </div>
+      <button class="qobuz-btn" id="qobuz-open-btn" onclick="openQobuz()">
+        <span class="qobuz-logo">♪</span>
+        <span>QOBUZ</span>
+      </button>
       <div class="tb-clock">
         <span class="live-dot"></span>
         <span id="clock-time">--:--:--</span>
@@ -494,6 +661,35 @@ body::after{content:'';position:fixed;inset:0;background-image:url("data:image/s
     <div class="sb-item"><div class="sb-dot amber"></div>TRADINGVIEW</div>
     <div class="sb-item" id="sb-radio"><div class="sb-dot off"></div>RÁDIO PARADA</div>
     <div class="sb-item" style="margin-left:auto">MARKET MONITOR · PH v2.0</div>
+  </div>
+</div>
+
+<!-- QOBUZ PANEL -->
+<div class="qobuz-panel" id="qobuz-panel" onclick="qobuzPanelClick(event)">
+  <div class="qobuz-inner" id="qobuz-inner">
+    <div class="qobuz-header">
+      <div>
+        <div class="qobuz-header-logo">◈ QOBUZ</div>
+        <div class="qobuz-header-sub">Hi-Res Streaming · Studio</div>
+      </div>
+      <button class="qobuz-close" onclick="closeQobuz()">✕</button>
+    </div>
+    <div class="qobuz-tabs">
+      <div class="qobuz-tab active" id="qtab-search" onclick="switchQTab('search')">🔍 BUSCA</div>
+      <div class="qobuz-tab" id="qtab-favorites" onclick="switchQTab('favorites')">❤ FAVORITOS</div>
+      <div class="qobuz-tab" id="qtab-library" onclick="switchQTab('library')">📚 BIBLIOTECA</div>
+    </div>
+    <div class="qobuz-body" id="qobuz-body">
+      <!-- Conteúdo dinâmico -->
+    </div>
+    <div class="qobuz-player" id="qobuz-player" style="display:none">
+      <div class="qp-cover"><img id="qp-cover-img" src="" alt=""></div>
+      <div class="qp-info">
+        <div><span class="qp-title" id="qp-title">—</span><span class="qp-badge" id="qp-badge"></span></div>
+        <div class="qp-artist" id="qp-artist">—</div>
+      </div>
+      <div class="qp-status" id="qp-status">▶ REPRODUZINDO</div>
+    </div>
   </div>
 </div>
 
@@ -1569,6 +1765,202 @@ function stopViz(){
   if(vuFrame){cancelAnimationFrame(vuFrame);vuFrame=null;}
   vuLevelL=0;vuLevelR=0;
   drawVUCircular(0,0);
+}
+
+// ── QOBUZ ────────────────────────────────────────────────────────
+const QOBUZ_USER_ID  = 10466335;
+const QOBUZ_PROXY_URL = 'https://qobuz-proxy.onrender.com';
+
+let qCurrentTab = 'search';
+let qFavorites  = JSON.parse(localStorage.getItem('qobuz_favs') || '[]');
+let qSearchTimeout = null;
+
+function qApi(endpoint) {
+  // Separa o path dos params
+  const [path, qs] = endpoint.split('?');
+  let url = `${QOBUZ_PROXY_URL}/qobuz/api?endpoint=${encodeURIComponent(path)}`;
+  if (qs) {
+    qs.split('&').forEach(pair => {
+      const [k, v] = pair.split('=');
+      if (k) url += `&${k}=${v || ''}`;
+    });
+  }
+  return fetch(url).then(r => r.json());
+}
+
+function openQobuz() {
+  document.getElementById('qobuz-panel').classList.add('open');
+  document.getElementById('qobuz-open-btn').classList.add('active');
+  renderQTab(qCurrentTab);
+}
+function closeQobuz() {
+  document.getElementById('qobuz-panel').classList.remove('open');
+  document.getElementById('qobuz-open-btn').classList.remove('active');
+}
+function qobuzPanelClick(e) {
+  if (e.target === document.getElementById('qobuz-panel')) closeQobuz();
+}
+function switchQTab(tab) {
+  qCurrentTab = tab;
+  document.querySelectorAll('.qobuz-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('qtab-' + tab).classList.add('active');
+  renderQTab(tab);
+}
+
+function renderQTab(tab) {
+  const body = document.getElementById('qobuz-body');
+  if (tab === 'search') {
+    body.innerHTML = `
+      <div class="qobuz-search-bar">
+        <input class="qobuz-search-input" id="q-search-input" placeholder="Buscar músicas, artistas, álbuns..." oninput="qSearchDebounce(this.value)" onkeydown="if(event.key==='Enter')qDoSearch(this.value)">
+        <button class="qobuz-search-btn" onclick="qDoSearch(document.getElementById('q-search-input').value)">BUSCAR</button>
+      </div>
+      <div class="qobuz-results" id="q-results">
+        <div class="qobuz-empty"><div class="qobuz-empty-icon">🎵</div><span>DIGITE PARA BUSCAR</span></div>
+      </div>`;
+    setTimeout(() => document.getElementById('q-search-input')?.focus(), 80);
+  } else if (tab === 'favorites') {
+    renderFavorites();
+  } else if (tab === 'library') {
+    renderLibrary();
+  }
+}
+
+function qSearchDebounce(val) {
+  clearTimeout(qSearchTimeout);
+  if (val.length < 2) return;
+  qSearchTimeout = setTimeout(() => qDoSearch(val), 600);
+}
+
+async function qDoSearch(query) {
+  if (!query || query.length < 2) return;
+  const results = document.getElementById('q-results');
+  if (!results) return;
+  results.innerHTML = `<div class="qobuz-loading"><div class="qobuz-spinner"></div><div class="qobuz-loading-txt">BUSCANDO···</div></div>`;
+  try {
+    const data = await qApi(`/catalog/search?query=${encodeURIComponent(query)}&type=tracks&limit=30`);
+    const tracks = data?.tracks?.items || [];
+    if (!tracks.length) {
+      results.innerHTML = `<div class="qobuz-empty"><div class="qobuz-empty-icon">🔍</div><span>NENHUM RESULTADO</span></div>`;
+      return;
+    }
+    results.innerHTML = `<div class="qsection">FAIXAS · ${tracks.length} RESULTADOS</div>` + tracks.map(t => qTrackRow(t)).join('');
+  } catch(e) {
+    results.innerHTML = `<div class="qobuz-empty"><div class="qobuz-empty-icon">⚠️</div><span>ERRO AO BUSCAR</span></div>`;
+  }
+}
+
+async function renderLibrary() {
+  const body = document.getElementById('qobuz-body');
+  body.innerHTML = `<div class="qobuz-results" id="q-results"><div class="qobuz-loading"><div class="qobuz-spinner"></div><div class="qobuz-loading-txt">CARREGANDO BIBLIOTECA···</div></div></div>`;
+  try {
+    const data = await qApi(`/favorite/getUserFavorites?user_id=${QOBUZ_USER_ID}&type=tracks&limit=50`);
+    const tracks = data?.tracks?.items || [];
+    const results = document.getElementById('q-results');
+    if (!results) return;
+    if (!tracks.length) {
+      results.innerHTML = `<div class="qobuz-empty"><div class="qobuz-empty-icon">📚</div><span>BIBLIOTECA VAZIA</span></div>`;
+      return;
+    }
+    results.innerHTML = `<div class="qsection">BIBLIOTECA · ${tracks.length} FAIXAS</div>` + tracks.map(t => qTrackRow(t)).join('');
+  } catch(e) {
+    const results = document.getElementById('q-results');
+    if (results) results.innerHTML = `<div class="qobuz-empty"><div class="qobuz-empty-icon">⚠️</div><span>ERRO AO CARREGAR</span></div>`;
+  }
+}
+
+function renderFavorites() {
+  const body = document.getElementById('qobuz-body');
+  if (!qFavorites.length) {
+    body.innerHTML = `<div class="qobuz-results"><div class="qobuz-empty"><div class="qobuz-empty-icon">❤</div><span>NENHUM FAVORITO AINDA</span><span style="font-size:10px;opacity:.5">ADICIONE FAIXAS NA BUSCA OU BIBLIOTECA</span></div></div>`;
+    return;
+  }
+  body.innerHTML = `<div class="qobuz-results"><div class="qsection">FAVORITOS · ${qFavorites.length} FAIXAS</div>` + qFavorites.map(t => qTrackRow(t)).join('') + '</div>';
+}
+
+function qTrackRow(t) {
+  const title    = t.title || '—';
+  const artist   = t.performer?.name || t.album?.artist?.name || '—';
+  const album    = t.album?.title || '';
+  const cover    = t.album?.image?.small || t.album?.image?.thumbnail || '';
+  const dur      = t.duration ? fmtQDur(t.duration) : '';
+  const hi       = t.maximum_bit_depth >= 24 ? 'HI-RES' : (t.maximum_sampling_rate >= 44 ? 'LOSSLESS' : '');
+  const hiClass  = t.maximum_bit_depth >= 24 ? 'qtrack-hi' : (hi ? 'qtrack-hi' : '');
+  const isFaved  = qFavorites.some(f => f.id === t.id);
+  const tid      = t.id;
+  return `<div class="qtrack" onclick="qPlayTrack(${tid})">
+    <div class="qtrack-cover">${cover ? `<img src="${cover}" loading="lazy">` : '🎵'}</div>
+    <div class="qtrack-info">
+      <div class="qtrack-title">${title}</div>
+      <div class="qtrack-artist">${artist}</div>
+      <div class="qtrack-album">${album}</div>
+    </div>
+    <div class="qtrack-meta">
+      ${hi ? `<span class="${hiClass}">${hi}</span>` : ''}
+      <span class="qtrack-duration">${dur}</span>
+      <button class="qtrack-fav-btn ${isFaved ? 'faved' : ''}" onclick="event.stopPropagation();qToggleFav(${tid}, this)" title="${isFaved ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}">
+        ${isFaved ? '♥' : '♡'}
+      </button>
+    </div>
+  </div>`;
+}
+
+function fmtQDur(s) {
+  const m = Math.floor(s / 60);
+  const sec = String(s % 60).padStart(2, '0');
+  return `${m}:${sec}`;
+}
+
+async function qToggleFav(trackId, btn) {
+  // Busca os dados da faixa no DOM
+  const row = btn.closest('.qtrack');
+  const title  = row.querySelector('.qtrack-title')?.textContent || '';
+  const artist = row.querySelector('.qtrack-artist')?.textContent || '';
+  const album  = row.querySelector('.qtrack-album')?.textContent || '';
+  const imgSrc = row.querySelector('.qtrack-cover img')?.src || '';
+
+  const idx = qFavorites.findIndex(f => f.id === trackId);
+  if (idx === -1) {
+    qFavorites.push({ id: trackId, title, performer: { name: artist }, album: { title: album, image: { small: imgSrc } } });
+    btn.classList.add('faved');
+    btn.textContent = '♥';
+    // Adiciona no Qobuz
+    try { await qApi(`/favorite/create?track_ids=${trackId}`); } catch(e) {}
+  } else {
+    qFavorites.splice(idx, 1);
+    btn.classList.remove('faved');
+    btn.textContent = '♡';
+    // Remove no Qobuz
+    try { await qApi(`/favorite/delete?track_ids=${trackId}`); } catch(e) {}
+  }
+  localStorage.setItem('qobuz_favs', JSON.stringify(qFavorites));
+}
+
+async function qPlayTrack(trackId) {
+  try {
+    const data = await qApi(`/track/getFileUrl?track_id=${trackId}&format_id=27`);
+    const url  = data?.url;
+    if (!url) { alert('Não foi possível obter o stream desta faixa.'); return; }
+    // Exibe player
+    const row = document.querySelector(`.qtrack[onclick*="${trackId}"]`);
+    const title  = row?.querySelector('.qtrack-title')?.textContent || '—';
+    const artist = row?.querySelector('.qtrack-artist')?.textContent || '—';
+    const imgSrc = row?.querySelector('.qtrack-cover img')?.src || '';
+    document.getElementById('qp-title').textContent = title;
+    document.getElementById('qp-artist').textContent = artist;
+    document.getElementById('qp-cover-img').src = imgSrc;
+    const hi = row?.querySelector('.qtrack-hi')?.textContent || '';
+    document.getElementById('qp-badge').textContent = hi;
+    document.getElementById('qobuz-player').style.display = 'flex';
+    document.getElementById('qp-status').textContent = '▶ REPRODUZINDO';
+    // Toca no audio global
+    globalAudio.src = url;
+    globalAudio.play().catch(() => {});
+    isPlaying = true;
+    startViz();
+  } catch(e) {
+    alert('Erro ao reproduzir. O token pode ter expirado.');
+  }
 }
 
 // ── INIT ──────────────────────────────────────────────────────────
